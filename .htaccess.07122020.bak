@@ -1,0 +1,16 @@
+#Force .php to html
+AddHandler application/x-httpd-php54 .html .htm
+
+#Force www:
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^toploftslondon.com [NC]
+RewriteRule ^(.*)$ http://www.toploftslondon.com/$1 [L,R=301,NC]
+
+#Force Redirect http to https:
+RewriteEngine On 
+RewriteCond %{HTTPS} !on 
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$ 
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$ 
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
